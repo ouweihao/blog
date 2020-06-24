@@ -81,19 +81,6 @@
 
 </footer>
 
-
-<!--<th:block th:fragment="script">-->
-<!--    &lt;!&ndash; 引入框架 &ndash;&gt;-->
-<!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
-<!--    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
-<!--    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script> &lt;!&ndash; 平滑滚动 &ndash;&gt;-->
-
-<!--    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script> &lt;!&ndash; 代码高亮 &ndash;&gt;-->
-<!--    <script src="../static/lib/tocdoc/tocbot.min.js" th:src="@{/lib/tocdoc/tocbot.min.js}"></script> &lt;!&ndash; 目录生成 &ndash;&gt;-->
-<!--    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script> &lt;!&ndash; 生成二维码 &ndash;&gt;-->
-<!--    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script> &lt;!&ndash; 滚动侦测 &ndash;&gt;-->
-<!--</th:block>-->
-
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
@@ -103,9 +90,6 @@
     <script src="../static/lib/tocdoc/tocbot.min.js" th:src="@{/lib/tocdoc/tocbot.min.js}"></script>  <!-- 目录生成 -->
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script> <!-- 生成二维码 -->
     <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script> <!-- 滚动侦测 -->
-    <script>
-        $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
-    </script>
 </th:block>
 
 </body>
