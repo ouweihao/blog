@@ -8,10 +8,6 @@
     <title th:replace="${title}">博客详情</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}" >
-    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}"> <!--  引入typo文章显示样式 -->
-    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}"> <!-- 引入animate动画样式 -->
-    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"> <!-- 引入代码高亮插件 -->
-    <link rel="stylesheet" href="../static/lib/tocdoc/tocbot.css" th:href="@{/lib/tocdoc/tocbot.css}"> <!-- 引入生成目录的组件 -->
 </head>
 <body>
 
@@ -27,8 +23,8 @@
             <div class="m-item m-mobile-hide right menu">
                 <div class="ui dropdown item">
                     <div class="text">
-                        <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                        OuWeihao
+                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${session.user.avator}}" alt="" class="ui avatar image">
+                        <span th:text="${session.user.nickname}">OuWeihao</span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
@@ -89,7 +85,6 @@
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-    <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 </th:block>
 
 </body>
