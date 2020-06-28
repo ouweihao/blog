@@ -23,6 +23,8 @@ public interface TypeService {
     // 返回所有的类型
     List<Type> listType();
 
+    List<Type> listTypeTop(Integer size);
+
     // 修改
     Type updateType(Long id, Type type);
 

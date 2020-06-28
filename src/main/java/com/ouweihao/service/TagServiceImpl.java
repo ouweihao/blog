@@ -6,7 +6,9 @@ import com.ouweihao.po.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +53,13 @@ public class TagServiceImpl implements TagService {
     public List<Tag> listTag(String ids) {
         List<Long> idArray = convertToList(ids);
         return tagRepository.findAll(idArray);
+    }
+
+    @Override
+    public List<Tag> listTagTop(Integer size) {
+        Sort sort = new Sort(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = new PageRequest(0, size, sort);
+        return tagRepository.findTagTop(pageable);
     }
 
     private List<Long> convertToList(String ids){
