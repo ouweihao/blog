@@ -5,6 +5,8 @@ import com.ouweihao.po.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface TagService {
 
     // 保存
@@ -18,6 +20,10 @@ public interface TagService {
 
     // 分页查询
     Page<Tag> listTag(Pageable pageable);
+
+    List<Tag> listTag();
+
+    List<Tag> listTag(String ids);
 
     // 修改
     Tag updateTag(Long id, Tag tag);

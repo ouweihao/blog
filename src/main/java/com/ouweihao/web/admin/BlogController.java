@@ -1,11 +1,12 @@
 package com.ouweihao.web.admin;
 
 import com.ouweihao.po.Blog;
+import com.ouweihao.po.User;
 import com.ouweihao.service.BlogService;
+import com.ouweihao.service.TagService;
 import com.ouweihao.service.TypeService;
 import com.ouweihao.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -14,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,6 +28,9 @@ public class BlogController {
 
     @Autowired
     private TypeService typeService;
+
+    @Autowired
+    private TagService tagService;
 
     @GetMapping("/blogs")
     public String blogs(
@@ -42,6 +49,28 @@ public class BlogController {
             Model model){
         model.addAttribute("page", blogService.listBlog(pageable, blog));
         return "admin/blogs :: blogList";
+    }
+
+    @GetMapping("/blogs/input")
+    public String input(Model model){
+        model.addAttribute("types", typeService.listType());
+        model.addAttribute("tags", tagService.listTag());
+        model.addAttribute("blog", new Blog());
+        return "/admin/blogs-input";
+    }
+
+    @PostMapping("/blogs")
+    public String post(Blog blog, HttpSession session, RedirectAttributes attributes){
+        blog.setUser((User) session.getAttribute("user"));
+        blog.setType(typeService.getType(blog.getType().getId()));
+        blog.setTags(tagService.listTag(blog.getTagIds()));
+        Blog b = blogService.saveBlog(blog);
+        if (b == null){
+            attributes.addFlashAttribute("message", "新增失败");
+        } else {
+            attributes.addFlashAttribute("message", "新增成功");
+        }
+        return "redirect:/admin/blogs";
     }
 
 }

@@ -14,15 +14,18 @@ public class Blog {
     private Long id; //博客id
 
     private String title; // 文章标题
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content; // 文章内容
     private String firstPicture; // 首图地址
     private String flag; // 文章标记，是原创、转载还是翻译
     private Integer views; // 文章的浏览次数
-    private Boolean appreciation; // 赞赏是否开启
-    private Boolean shareStatement; // 转载声明是否开启
-    private Boolean commentAbled; // 评论是否开启
-    private Boolean published; // 是否发布
-    private Boolean recommend; // 是否推荐
+    private boolean appreciation; // 赞赏是否开启
+    private boolean shareStatement; // 转载声明是否开启
+    private boolean commentabled; // 评论是否开启
+    private boolean published; // 是否发布
+    private boolean recommend; // 是否推荐
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime; // 创建时间
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,6 +42,9 @@ public class Blog {
 
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
+
+    @Transient
+    private String tagIds;
 
     public Blog() {
     }
@@ -91,43 +97,43 @@ public class Blog {
         this.views = views;
     }
 
-    public Boolean getAppreciation() {
+    public boolean isAppreciation() {
         return appreciation;
     }
 
-    public void setAppreciation(Boolean appreciation) {
+    public void setAppreciation(boolean appreciation) {
         this.appreciation = appreciation;
     }
 
-    public Boolean getShareStatement() {
+    public boolean isShareStatement() {
         return shareStatement;
     }
 
-    public void setShareStatement(Boolean shareStatement) {
+    public void setShareStatement(boolean shareStatement) {
         this.shareStatement = shareStatement;
     }
 
-    public Boolean getCommentAbled() {
-        return commentAbled;
+    public boolean isCommentabled() {
+        return commentabled;
     }
 
-    public void setCommentAbled(Boolean commentAbled) {
-        this.commentAbled = commentAbled;
+    public void setCommentabled(boolean commentabled) {
+        this.commentabled = commentabled;
     }
 
-    public Boolean getPublished() {
+    public boolean isPublished() {
         return published;
     }
 
-    public void setPublished(Boolean published) {
+    public void setPublished(boolean published) {
         this.published = published;
     }
 
-    public Boolean getRecommend() {
+    public boolean isRecommend() {
         return recommend;
     }
 
-    public void setRecommend(Boolean recommend) {
+    public void setRecommend(boolean recommend) {
         this.recommend = recommend;
     }
 
@@ -179,6 +185,14 @@ public class Blog {
         this.comments = comments;
     }
 
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -190,7 +204,7 @@ public class Blog {
                 ", views=" + views +
                 ", appreciation=" + appreciation +
                 ", shareStatement=" + shareStatement +
-                ", commentAbled=" + commentAbled +
+                ", commentAbled=" + commentabled +
                 ", published=" + published +
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
