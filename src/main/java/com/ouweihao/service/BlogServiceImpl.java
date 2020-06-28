@@ -4,6 +4,7 @@ import com.ouweihao.NotFoundException;
 import com.ouweihao.dao.BlogRepository;
 import com.ouweihao.po.Blog;
 import com.ouweihao.po.Type;
+import com.ouweihao.util.MyBeanUtils;
 import com.ouweihao.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +75,9 @@ public class BlogServiceImpl implements BlogService {
         Blog b = blogRepository.findOne(id);
         if (b == null){
             throw  new NotFoundException("该博客不存在");
-        } else {
-            BeanUtils.copyProperties(b, blog);
         }
+        BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
 
