@@ -2,7 +2,6 @@ package com.ouweihao.web.admin;
 
 import com.ouweihao.po.Tag;
 import com.ouweihao.service.TagService;
-import com.ouweihao.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -78,7 +77,7 @@ public class TagController {
         }
 
         if (result.hasErrors()){
-            return  "admin/types-input";
+            return  "admin/tags-input";
         }
 
         Tag t = tagService.updateTag(id, tag);
