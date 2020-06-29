@@ -171,6 +171,10 @@ body{
     color: #333 !important;
 }
 
+.m-teal{
+    color: #00B5AD !important;
+}
+
 /* 透明度 */
 .m-opacity-mini{
     opacity: 0.8 !important;
