@@ -46,33 +46,33 @@
             <div class="ui top attached segment">
                 <div class="ui horizontal link list">
                     <div class="item">
-                        <img src="https://unsplash.it/100/100?image=1005" alt="" class="ui avatar image">
-                        <div class="content"><a href="#" class="header">ouweihao</a></div>
+                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${blog.user.avator}}" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">ouweihao</a></div>
                     </div>
                     <div class="item">
-                        <i class="calendar icon"></i> 2020-06-13
+                        <i class="calendar icon"></i> <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">2020-06-13</span>
                     </div>
                     <div class="item">
-                        <i class="eye icon"></i> 2000
+                        <i class="eye icon"></i> <span th:text="${blog.views}">2000</span>
                     </div>
                 </div>
             </div>
 
             <!-- 图片区域 -->
             <div class="ui attached segment">
-                <img src="https://www.unsplash.it/800/450?image=1037" alt="" class="ui fluid rounded image">
+                <img src="https://www.unsplash.it/800/450?image=1037" th:src="@{${blog.firstPicture}}" alt="" class="ui fluid rounded image">
             </div>
 
             <!-- 内容 -->
             <div class="ui attached padded segment">
                 <div class="ui right aligned basic segment">
-                    <div class="ui orange basic label">原创</div>
+                    <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
                 </div>
 
                 <!-- 正文 -->
-                <h2 class="ui center aligned header">关于刻意练习的清单</h2>
+                <h2 class="ui center aligned header" th:text="${blog.title}">关于刻意练习的清单</h2>
                 <br>
-                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-text m-padded-tb-large">
+                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-text m-padded-tb-large" th:utext="${blog.content}">
 
                     <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
@@ -277,7 +277,7 @@ h5,h6{font-size:1em;}
 }
 </code></pre>
 
-                    <h3 id="section3">三、附录</h3>
+                    <h2 id="section3">三、附录</h2>
 
                     <h5 id="appendix1">1、<i class="serif">Typo.css</i> 排版偏重点</h5>
                     <table class="ui table" summary="Typo.css 排版偏重点">
@@ -434,7 +434,7 @@ h5,h6{font-size:1em;}
 
                 <!-- 标签 不同 -->
                 <div class="ui basic right aligned segment">
-                    <div class="ui basic teal left pointing label">方法论</div>
+                    <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</div>
                 </div>
 
                 <!-- 赞赏 -->
@@ -446,11 +446,11 @@ h5,h6{font-size:1em;}
                     <div class="ui orange basic label">
                         <div class="ui images" style="font-size: inherit !important;">
                             <div class="image">
-                                <img src="../static/images/wechat.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                                 <div>AliPay</div>
                             </div>
                             <div class="image">
-                                <img src="../static/images/wechat.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                                <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded bordered image" style="width: 120px">
                                 <div>WeChat</div>
                             </div>
                         </div>
@@ -465,15 +465,15 @@ h5,h6{font-size:1em;}
                     <!-- information -->
                     <div class="eleven wide column">
                         <ui class="list">
-                            <li>作者：OuWeihao (联系作者)</li>
-                            <li>发表时间：2020-06-16 18:07</li>
+                            <li>作者：<span th:text="${blog.user.nickname}">OuWeihao</span> (<a href="#" th:href="@{/about}" target="_blank">联系作者</a>)</li>
+                            <li>发表时间：<span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}">2020-06-16 18:07</span></li>
                             <li>版权声明：自由转载-非商用-非衍生-保持署名 (创意共享3.0许可证)</li>
-                            <li>公众号转载：请在文末添加作者公众号二维码</li>
+<!--                            <li>公众号转载：请在文末添加作者公众号二维码</li>-->
                         </ui>
                     </div>
                     <!-- QRCode -->
                     <div class="five wide column">
-                        <img src="../static/images/wechat.jpg" alt="" class="ui right floated image bordered rounded" style="width: 110px;">
+                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui right floated image bordered rounded" style="width: 110px;">
                     </div>
                 </div>
             </div>
@@ -655,7 +655,7 @@ h5,h6{font-size:1em;}
     <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
     <!--/*/</th:block>/*/-->
 
-    <script>
+    <script th:inline="javascript">
         $('.menu.toggle').click(function () {
             $('.m-item').toggleClass('m-mobile-hide');
         });
@@ -688,8 +688,10 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
+        var serverUrl = "localhost:8080"
+        var url = /*[[@{/blogs/{id}(id=${blog.id})}]]*/"";
         var qrcode = new QRCode("qrcode", {
-            text: "http://jindo.dev.naver.com/collie",
+            text: serverUrl + url,
             width: 110,
             height: 110,
             colorDark : "#000000",

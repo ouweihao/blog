@@ -1,6 +1,7 @@
 package com.ouweihao.web;
 
 import com.ouweihao.NotFoundException;
+import com.ouweihao.po.Blog;
 import com.ouweihao.service.BlogService;
 import com.ouweihao.service.TagService;
 import com.ouweihao.service.TypeService;
@@ -48,7 +49,9 @@ public class IndexController {
     }
 
     @GetMapping("/blog/{id}")
-    public String blog(){
+    public String blog(@PathVariable Long id, Model model){
+        Blog blog = blogService.getAndConvert(id);
+        model.addAttribute("blog", blog);
         return "blog";
     }
 

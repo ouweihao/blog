@@ -12,6 +12,8 @@ public interface BlogService {
     // 根据id查询博客
     Blog getBlog(Long id);
 
+    Blog getAndConvert(Long id);
+
     // 分页查询
     Page<Blog> listBlog(Pageable pageable, BlogQuery blog);
 
